@@ -1,13 +1,13 @@
 import React from 'react'
 import ProductCard from '../../components/ProductCard/ProductCard';
-
-const Products = ({products}) => {
+import './Products.css'
+const Products = ({products, addToCart}) => {
    
   return (
-    <div>
+    <div className='products'>
         {
             products.map((product) => {
-                return <ProductCard key={product.id} product={product}/>
+                return <ProductCard key={product.id}  addToCart={addToCart} product={product}/>
             })
         }
     </div>

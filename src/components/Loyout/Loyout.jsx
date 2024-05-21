@@ -2,10 +2,10 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../Header/Header'
 
-const Loyout = () => {
+const Loyout = ({carts}) => {
   return (
     <div>
-        <Header />
+        <Header carts={carts}/>
         <Outlet />
     </div>
   )

@@ -1,18 +1,29 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { FaCartShopping } from "react-icons/fa6";
+
 import './Header.css'
 
-const Header = () => {
+const Header = ({ carts }) => {
   return (
-   <header>
-    <div>
+    <header>
+      <div>
         <h5>logo</h5>
-    </div>
-    <nav>
+      </div>
+      <nav>
         <NavLink to='/'>home</NavLink>
         <NavLink to='/products'>products</NavLink>
-    </nav>
-   </header>
+      </nav>
+      <div>
+        {
+          carts.length ?
+            <NavLink to='/carts'>
+              <FaCartShopping />
+            </NavLink>
+            : <FaCartShopping />
+        }
+      </div>
+    </header>
   )
 }
 

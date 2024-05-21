@@ -1,0 +1,13 @@
+.cartItem{
+    border : 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    padding: 9px;
+}
+
+.cartBTNs > button{
+    width: 20px;
+    height: 20px;
+}

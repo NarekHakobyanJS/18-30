@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import './ProductCard.css'
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, addToCart}) => {
+  const [textLength, setTextLength] = useState(20);
+
+  
+  const addItem = (item) => {
+    addToCart(item)
+  }
   return (
-    <div>
+    <div className='productCard'>
         <NavLink to={`/products/${product.id}`}>
-            <img width={180} src={product.image} />
+            <img  src={product.image} />
         </NavLink>
-        <h4>{product.title}</h4>
-        <button>add To Card</button>
+        <h4>{product.title.length <= textLength ? product.title : `${product.title.slice(0, textLength)}...`}</h4>
+        <button onClick={() => addItem(product)}>add To Card</button>
     </div>
   )
 }
