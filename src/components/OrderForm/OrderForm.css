@@ -1,0 +1,32 @@
+.orederForm{
+    width: 500px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.orederForm > form {
+    width: 500px;
+    margin : 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.orederForm > form > input {
+    width: 85%;
+    padding: 7px;
+}
+
+.orederForm > form > select {
+    width: 85%;
+    padding: 7px;
+}
+.orederForm > form > h5 {
+    color : red;
+}
+.orederForm > form > button {
+    width: 85%;
+    padding: 7px;
+}

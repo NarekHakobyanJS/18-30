@@ -3,7 +3,7 @@ import './Carts.css'
 import Cart from '../../components/Cart/Cart'
 import OrderForm from '../../components/OrderForm/OrderForm'
 
-const Carts = ({carts, changeCount, allPrice}) => {
+const Carts = ({carts, changeCount, allPrice, ModalOpen, orderFormApp}) => {
   return (
     <div>
       <div>
@@ -14,8 +14,8 @@ const Carts = ({carts, changeCount, allPrice}) => {
         }
       </div>
       <div>
-        <OrderForm />
-        <h2>totalPrice : {allPrice}</h2>
+        <OrderForm allPrice={allPrice} ModalOpen={ModalOpen} orderFormApp={orderFormApp}/>
+       
 
       </div>
     </div>

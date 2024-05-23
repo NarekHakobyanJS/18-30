@@ -6,12 +6,36 @@ import Loyout from './components/Loyout/Loyout';
 import Product from './pages/Product/Product';
 import { useState } from 'react';
 import Carts from './pages/Carts/Carts';
+import {createPortal} from 'react-dom';
+
+function Modal({children}){
+  return (
+    <div>
+     {
+      createPortal(children, document.getElementById('portal'))
+     }
+    </div>
+  )
+}
 
 function App({ products }) {
   const [carts, setCarts] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [orderData, setOrderData] = useState([]);
 
+
+  console.log(orderData);
+  const ModalOpen = () => setOpen(true)
+  const ModalClose = () => setOpen(false)
+
+  const orderFormApp = (data) => {
+    // console.log(data);
+    setOrderData((prev) => {
+      return [{...data}]
+    })
+  }
   let allPrice = carts.reduce((acum, elem) => acum + elem.initprice, 0)
-  // console.log(allPrice);
+ 
 
   // addToCard
   const addToCart = (item) => {
@@ -57,12 +81,29 @@ function App({ products }) {
   }
   return (
     <div className="App">
-
+      {
+        open &&  <Modal>
+        <div className='modal'>
+          <div className='modal-content'>
+            <button onClick={ModalClose}>X</button>
+            {
+              orderData.map((el) => {
+                return <div>
+                    <h1>{el.name}</h1>
+                    <b>{allPrice}</b>
+                  </div>
+              })
+            }
+          </div>
+        </div>
+      </Modal>
+      }
+     
       <Routes>
         <Route path='/' element={<Loyout carts={carts}/>}>
           <Route index element={<Home />} />
           <Route path='/products' element={<Products products={products}  addToCart={ addToCart}/>} />
-          <Route path='/carts' element={<Carts carts={carts} changeCount={changeCount} allPrice={allPrice}/> }/>
+          <Route path='/carts' element={<Carts carts={carts} changeCount={changeCount} allPrice={allPrice} ModalOpen={ModalOpen} orderFormApp={orderFormApp}/> }/>
           <Route path='/products/:id' element={<Product products={products} /> }/>
         </Route>
       </Routes>
