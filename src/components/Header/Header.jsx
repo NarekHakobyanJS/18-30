@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { FaCartShopping } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
 
 import './Header.css'
 
 const Header = ({ carts }) => {
-  const [locationData, setLocationData] = useState('');
-
-  const location = useLocation();
-
-  const navigate = useNavigate()
-
-  // const goBack = () => {
-  //   if(location.pathname === '/carts') {
-  //     return true
-  //   }else {
-  //     return false
-  //   }
-  // }
-  // console.log(navigate);
+  
+  const user = "Ashot"
   return (
     <header>
       <div>
@@ -30,11 +19,13 @@ const Header = ({ carts }) => {
       </nav>
       <div>
         {
-          <NavLink to={location.pathname !== '/carts' ? '/carts' : `/`}>
+          <NavLink to={'/carts'}>
             <FaCartShopping />
           </NavLink>
         }
-        
+        <NavLink to={user === "Ahot" ? '/profile' : '/login'}>
+          <FaUserAlt />
+        </NavLink>
       </div>
     </header>
   )
