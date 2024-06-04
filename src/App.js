@@ -1,18 +1,22 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import { useEffect, useState } from 'react';
+//
 import Home from './pages/Home/Home';
 import Products from './pages/Products/Products';
 import Loyout from './components/Loyout/Loyout';
 import Product from './pages/Product/Product';
-import { useState } from 'react';
 import Carts from './pages/Carts/Carts';
 import Modal from './components/Modal/Modal';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
 import Admin from './pages/Admin/Admin';
+//  "initprice": 10,
+// "count": 1,
+import { insatace } from './api/api';
+import './App.css';
 
-function App({ products }) {
+function App() {
   const [carts, setCarts] = useState([]);
   const [open, setOpen] = useState(false);
   const [orderData, setOrderData] = useState([]);
@@ -21,14 +25,21 @@ function App({ products }) {
     {id : 2, name : "Ani", login : 'Ani', password : '1234', role : 'user'},
     {id : 3, name : "Varo", login : 'Varo', password : '1234', role : 'user'},
     ])
-
-
-
+   const [products, setProducts] = useState([]);
   const ModalOpen = () => setOpen(true)
   const ModalClose = () => setOpen(false)
 
+  useEffect(() => {
+    insatace.get('/products')
+      .then((res) => setProducts(res.data.map((el) => {
+        return {
+          ...el,
+          initprice : el.price,
+          count : 1
+        }
+      })))
+  }, [])
   const orderFormApp = (data) => {
-    // console.log(data);
     setOrderData((prev) => {
       return [{...data}]
     })
@@ -111,7 +122,7 @@ function App({ products }) {
           <Route index element={<Home />} />
           <Route path='/products' element={<Products products={products}  addToCart={ addToCart}/>} />
           <Route path='/carts' element={<Carts carts={carts} changeCount={changeCount} allPrice={allPrice} ModalOpen={ModalOpen} orderFormApp={orderFormApp}/> }/>
-          <Route path='/products/:id' element={<Product products={products} /> }/>
+          <Route path='/products/:id' element={<Product /> }/>
           <Route path='/login' element={<Login users={users}/> }/>
           <Route path='/profile' element={<Profile /> }/>
           <Route path='/register' element={<Register createNewUser={createNewUser}/> }/>

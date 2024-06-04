@@ -3,21 +3,18 @@ import './Cart.css'
 
 const Cart = ({ cart, changeCount }) => {
 
-
-    /// asxhatuma bayc etqane law chi asxhatum 
-    
-    const [count, setCount] = useState(cart.count)
+    let [count, setCount] = useState(cart.count)
 
     const minus = () => {
         if (count > 1) {
-            setCount(count - 1)
+            setCount(--count)
             changeCount(cart, count)
         }
     }
 
 
     const plus = () => {
-        setCount(count + 1)
+        setCount(++count)
         changeCount(cart, count)
     }
     return (
